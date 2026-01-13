@@ -1,4 +1,6 @@
 
+import { StageId } from '../types';
+
 export const DISCOVERY_STAGES = [
     { id: 'awareness', label: '1. 인식 (Awareness)', iconStyle: 'bg-rose-50 text-rose-600' },
     { id: 'consideration', label: '2. 고려 (Consideration)', iconStyle: 'bg-amber-50 text-amber-600' },
@@ -6,8 +8,7 @@ export const DISCOVERY_STAGES = [
     { id: 'purchase', label: '4. 구매 (Purchase)', iconStyle: 'bg-emerald-50 text-emerald-600' }
 ];
 
-// New Stage Definitions based on Project Rules
-export const STAGE_DEFINITIONS = {
+export const STAGE_DEFINITIONS: Record<StageId, { id: StageId, label: string, keyQuestion: string, description: string, nextStage: StageId | null }> = {
     awareness: {
         id: 'awareness',
         label: '1. 인식 (Awareness)',
@@ -38,15 +39,14 @@ export const STAGE_DEFINITIONS = {
     }
 };
 
-// Access Matrix: [View, Edit, Hide]
-export const FUNCTION_ACCESS_MATRIX = {
+export const FUNCTION_ACCESS_MATRIX: Record<string, Record<StageId, 'view' | 'edit' | 'hide'>> = {
     dashboard: { awareness: 'view', consideration: 'view', evaluation: 'view', purchase: 'view' },
     discovery: { awareness: 'edit', consideration: 'edit', evaluation: 'edit', purchase: 'edit' },
-    assessment: { awareness: 'hide', consideration: 'edit', evaluation: 'view', purchase: 'hide' }, // Deal Qualification
+    assessment: { awareness: 'hide', consideration: 'edit', evaluation: 'view', purchase: 'hide' },
     solutionMap: { awareness: 'hide', consideration: 'edit', evaluation: 'edit', purchase: 'view' },
-    competitive: { awareness: 'hide', consideration: 'hide', evaluation: 'edit', purchase: 'view' }, // Competitive Fit
-    technicalWin: { awareness: 'hide', consideration: 'hide', evaluation: 'hide', purchase: 'view' }, // [NEW] Rule 12
-    strategy: { awareness: 'hide', consideration: 'hide', evaluation: 'edit', purchase: 'edit' }, // Win Strategy
+    competitive: { awareness: 'hide', consideration: 'hide', evaluation: 'edit', purchase: 'view' },
+    technicalWin: { awareness: 'hide', consideration: 'hide', evaluation: 'hide', purchase: 'view' },
+    strategy: { awareness: 'hide', consideration: 'hide', evaluation: 'edit', purchase: 'edit' },
     reports: { awareness: 'view', consideration: 'view', evaluation: 'edit', purchase: 'view' }
 };
 
@@ -56,7 +56,7 @@ export const MENU_ITEMS = [
     { id: 'assessment', label: 'Deal Qualification', icon: 'fa-solid fa-chart-pie' },
     { id: 'solutionMap', label: 'Solution Map', icon: 'fa-solid fa-map-location-dot' },
     { id: 'competitive', label: 'Competitive Fit', icon: 'fa-solid fa-trophy' },
-    { id: 'technicalWin', label: 'Tech. Win Strategy', icon: 'fa-solid fa-chess-knight' }, // [NEW] Rule 12
+    { id: 'technicalWin', label: 'Tech. Win Strategy', icon: 'fa-solid fa-chess-knight' },
     { id: 'strategy', label: 'Win Strategy', icon: 'fa-solid fa-chess-queen' },
     { id: 'reports', label: 'Reports', icon: 'fa-solid fa-folder-open' }
 ];
@@ -79,6 +79,3 @@ export const ASSESSMENT_CONFIG = {
         ]
     }
 };
-
-// Deprecated but kept for compatibility if needed elsewhere
-export const STAGE_ACTIVITIES = {};
