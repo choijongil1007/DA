@@ -1,0 +1,47 @@
+name: Deploy Deal Architect App
+
+# 1. 언제 실행할지 설정
+on:
+  push:
+    branches: [ "main" ]  # main 브랜치에 push 되면 실행
+  pull_request:
+    branches: [ "main" ]  # main으로 PR이 오면 실행
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 2. 코드 체크아웃 (GitHub 서버로 내 코드 가져오기)
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 3. Node.js 환경 설정
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm' # npm 패키지 캐싱으로 속도 향상
+
+      # 4. 의존성 패키지 설치
+      - name: Install dependencies
+        run: npm install
+
+      # 5. TypeScript 타입 체크 (TS를 쓰기로 했으니 필수!)
+      - name: Type check
+        run: npm run type-check || npx tsc --noEmit
+
+      # 6. 리액트 빌드 (중요: 여기서 API 키 주입)
+      - name: Build
+        env:
+          VITE_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: npm run build
+
+      # 7. 배포 단계 (이 부분은 배포처에 따라 달라집니다)
+      # 예: Firebase Hosting에 배포하는 경우
+      # - name: Deploy to Firebase
+      #   uses: FirebaseExtended/action-hosting-deploy@v0
+      #   with:
+      #     repoToken: ${{ secrets.GITHUB_TOKEN }}
+      #     firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+      #     projectId: your-project-id
