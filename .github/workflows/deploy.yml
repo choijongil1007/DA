@@ -20,15 +20,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          # cache: 'npm' <- 이 줄을 삭제하여 package-lock.json 미검출 에러를 방지합니다.
 
       - name: Install dependencies
+        # package-lock.json이 없으므로 npm install을 사용하여 필요한 패키지를 새로 설치합니다.
         run: npm install
 
       - name: Build
         env:
           VITE_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          # GitHub Pages는 도메인 뒤에 /repository-name/이 붙는 경우가 많으므로 base 경로 확인 필요
         run: npm run build
 
       # 핵심: dist 폴더를 gh-pages 브랜치로 배포
