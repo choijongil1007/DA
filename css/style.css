@@ -1,0 +1,234 @@
+/* 
+   Deal Architect Design System - Modern Enterprise SaaS Style
+*/
+
+html {
+    overflow-y: scroll;
+}
+
+body {
+    font-family: 'Outfit', 'Inter', 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 1. Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 99px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #94A3B8;
+}
+
+/* 2. Loader */
+.spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(79, 70, 229, 0.1);
+    border-radius: 50%;
+    border-top-color: #4F46E5;
+    animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 3. Skeleton Shimmer */
+.skeleton-shimmer {
+    background: #f1f5f9;
+    background-image: linear-gradient(to right, #f1f5f9 0%, #e2e8f0 20%, #f1f5f9 40%, #f1f5f9 100%);
+    background-repeat: no-repeat;
+    background-size: 800px 100%; 
+    animation: shimmer 1.5s linear infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: -468px 0; }
+    100% { background-position: 468px 0; }
+}
+
+/* 4. Details Summary */
+details > summary { list-style: none; cursor: pointer; }
+details > summary::-webkit-details-marker { display: none; }
+
+/* 5. Tooltip */
+.tooltip-trigger {
+    position: relative;
+    cursor: help;
+}
+.tooltip-content {
+    visibility: hidden;
+    position: absolute;
+    z-index: 100;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%) translateY(5px);
+    background-color: #0F172A;
+    color: white;
+    text-align: left;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    width: 220px;
+    opacity: 0;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    line-height: 1.5;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.tooltip-content::after {
+    content: "";
+    position: absolute;
+    top: 100%; left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #0F172A transparent transparent transparent;
+}
+.tooltip-trigger:hover .tooltip-content {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* 5.1 Floating Custom Tooltip for Visualization */
+#custom-tooltip {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
+    transition: opacity 0.15s ease-out;
+}
+
+/* 6. Animations */
+@keyframes modal-in {
+    0% { opacity: 0; transform: scale(0.98) translateY(8px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+.animate-modal-in { animation: modal-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+@keyframes pulse-dot {
+    0% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7); }
+    70% { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); }
+    100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+}
+
+/* 7. Enterprise UI Components */
+.card-enterprise {
+    background-color: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-enterprise:hover {
+    transform: translateY(-2px);
+    border-color: #CBD5E1;
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.08);
+}
+
+.input-enterprise {
+    background-color: #FFFFFF;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.925rem;
+    color: #0F172A;
+    transition: all 0.15s ease;
+    width: 100%;
+}
+.input-enterprise:focus {
+    outline: none;
+    border-color: #4F46E5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* Enterprise Slider */
+input[type=range].slider-enterprise {
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+    height: 20px;
+}
+input[type=range].slider-enterprise::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background: #0F172A;
+    border: 2px solid #0F172A;
+    cursor: grab;
+    margin-top: -7px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s;
+    position: relative;
+    z-index: 20;
+}
+input[type=range].slider-enterprise::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: #CBD5E1;
+    border-radius: 2px;
+}
+
+/* Quadrant View Styling */
+.quadrant-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    border: 1.5px solid #E2E8F0;
+    position: relative;
+    background-color: #F8FAFC;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.quadrant-cell {
+    border: 0.5px dashed #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: #94A3B8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.quadrant-dot {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: #4F46E5;
+    border: 2px solid white;
+    border-radius: 50%;
+    z-index: 30;
+    animation: pulse-dot 2s infinite;
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 8. Stage Anchor Styles */
+.stage-step {
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%, 15px 50%);
+    margin-right: -15px;
+    padding-left: 25px; 
+    z-index: 1;
+}
+.stage-step:first-child {
+    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%);
+    padding-left: 16px;
+}
+.stage-step.active { background-color: #334155; color: white; z-index: 10; }
+.stage-step.completed { background-color: #CBD5E1; color: #64748B; }
+.stage-step.future { background-color: #F1F5F9; color: #94A3B8; }
